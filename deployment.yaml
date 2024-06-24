@@ -14,6 +14,6 @@ spec:
     spec:
       containers:
       - name: user-management
-        image: iMrSeba/user-ms:latest
+        image: imrseba/user-ms:latest
         ports:
         - containerPort: 3000
