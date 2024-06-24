@@ -1,34 +1,49 @@
 pipeline {
-    agent any
 
-    stages {
-        stage('Clone Repository') {
-            steps {
-                git 'https://github.com/iMrSeba/user.ms.git'
-            }
-        }
-        stage('Build Docker Image') {
-            steps {
-                script {
-                    docker.build('user-management')
-                }
-            }
-        }
-        stage('Push Docker Image') {
-            steps {
-                script {
-                    docker.withRegistry('https://index.docker.io/v1/', 'dockerhub-credentials') {
-                        docker.image('user-management').push('latest')
-                    }
-                }
-            }
-        }
-        stage('Deploy to Minikube') {
-            steps {
-                script {
-                    sh 'kubectl apply -f deployment.yaml'
-                }
-            }
-        }
+  environment {
+    dockerimagename = "imrseba/ms-user"
+    dockerImage = ""
+  }
+
+  agent any
+
+  stages {
+
+    stage('Checkout Source') {
+      steps {
+        git 'https://github.com/iMrSeba/user-ms.git'
+      }
     }
+
+    stage('Build image') {
+      steps{
+        script {
+          dockerImage = docker.build dockerimagename
+        }
+      }
+    }
+
+    stage('Pushing Image') {
+      environment {
+               registryCredential = 'dockerhublogin'
+           }
+      steps{
+        script {
+          docker.withRegistry( 'https://registry.hub.docker.com', registryCredential ) {
+            dockerImage.push("latest")
+          }
+        }
+      }
+    }
+
+    stage('Deploying App to Kubernetes') {
+      steps {
+        script {
+          kubernetesDeploy(configs: "deploymentservice.yml", kubeconfigId: "kubernetes")
+        }
+      }
+    }
+
+  }
+
 }
