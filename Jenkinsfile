@@ -11,7 +11,7 @@ pipeline {
 
     stage('Checkout Source') {
       steps {
-        git 'https://github.com/imrseba/user-ms.git'
+        git branch: 'main', url: 'https://github.com/imrseba/user-ms.git'
       }
     }
 
