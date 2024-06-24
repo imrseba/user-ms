@@ -1,19 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: user-management
+  name: user-ms-deployment
+  labels:
+    app: user-ms
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: user-management
+      app: user-ms
   template:
     metadata:
       labels:
-        app: user-management
+        app: user-ms 
     spec:
       containers:
-      - name: user-management
+      - name: nodeserver
         image: imrseba/user-ms:latest
         ports:
         - containerPort: 3000
