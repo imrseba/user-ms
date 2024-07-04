@@ -39,12 +39,6 @@ pipeline {
     stage('Deploying App to Minikube') {
       steps {
         script {
-          if (!fileExists('deploymentservice.yaml')) {
-            error("El archivo deploymentservice.yaml no existe")
-          }
-
-          sh 'kubectl config use-context minikube || true'
-          sh 'kubectl delete -f deploymentservice.yaml || true'
           sh 'kubectl apply -f deploymentservice.yaml'
         }
       }
