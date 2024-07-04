@@ -39,7 +39,9 @@ pipeline {
     stage('Deploying App to Minikube') {
       steps {
         script {
-          sh 'kubectl apply -f deploymentservice.yaml'
+          withEnv(["KUBECONFIG=/var/lib/jenkins/.kube/config"]) {
+                        sh 'kubectl apply -f deploymentservice.yaml --validate=false'
+                    }
         }
       }
     }
