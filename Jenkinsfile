@@ -37,19 +37,18 @@ pipeline {
     }
 
     stage('Deploying App to Minikube') {
-    steps {
-      script {
-        if (!fileExists('user-ms/deploymentservice.yaml')) {
-          error("El archivo user-ms/deploymentservice.yaml no existe")
-        }
+      steps {
+        script {
+          if (!fileExists('deploymentservice.yaml')) {
+            error("El archivo deploymentservice.yaml no existe")
+          }
 
-        sh 'kubectl config use-context <context-name> || true'
-        sh 'kubectl delete -f user-ms/deploymentservice.yaml || true'
-        sh 'kubectl apply -f user-ms/deploymentservice.yaml'
+          sh 'kubectl config use-context minikube || true'
+          sh 'kubectl delete -f deploymentservice.yaml || true'
+          sh 'kubectl apply -f deploymentservice.yaml'
+        }
       }
     }
-  }
-
   }
 
 }
