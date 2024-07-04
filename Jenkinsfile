@@ -40,10 +40,10 @@ pipeline {
       steps {
         script {
           // Eliminar el despliegue y servicio anterior si existen
-          sh 'kubectl delete -f k8s/deploymentservice.yaml || true'
+          sh 'kubectl delete -f user-ms/deploymentservice.yaml || true'
           
           // Aplicar las nuevas configuraciones
-          sh 'kubectl apply -f k8s/deploymentservice.yaml'
+          sh 'kubectl apply -f user-ms/deploymentservice.yaml'
         }
       }
     }
