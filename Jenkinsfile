@@ -36,10 +36,14 @@ pipeline {
       }
     }
 
-    stage('Deploying App to Kubernetes') {
+    stage('Deploying App to Minikube') {
       steps {
         script {
-          kubernetesDeploy(configs: "user-ms/deploymentservice.yml", kubeconfigId: "kubernetes")
+          // Eliminar el despliegue y servicio anterior si existen
+          sh 'kubectl delete -f k8s/deploymentservice.yaml || true'
+          
+          // Aplicar las nuevas configuraciones
+          sh 'kubectl apply -f k8s/deploymentservice.yaml'
         }
       }
     }
