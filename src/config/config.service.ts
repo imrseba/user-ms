@@ -6,11 +6,11 @@ export class ConfigService {
   constructor(private readonly configService: NestConfig) {}
 
   getAppPort(): number {
-    return this._checkVarExists<number>('PORT');
+    return this._checkVarExists<number>(3000);
   }
 
   getDatabasePath(): string {
-    return this._checkVarExists<string>('DATABASE_PATH');
+    return this._checkVarExists<string>(sqlite:///db.sqlite);
   }
 
   private _checkVarExists<T>(name: any): T {
