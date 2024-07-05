@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: nodeserver
-        image: imrseba/user-ms:latest
+        image: imrseba/user-ms
         ports:
         - containerPort: 3000
 
