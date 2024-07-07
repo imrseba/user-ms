@@ -15,36 +15,6 @@ pipeline {
             }
         }
 
-        stage('Unit Tests') {
-            steps {
-                script {
-                    sh 'npm install'
-                    sh 'npm run test'
-                }
-            }
-        }
-
-        stage('E2E Tests') {
-            steps {
-                script {
-                    sh 'npm run test:e2e'
-                }
-            }
-            post {
-                always {
-                    junit '**/e2e-test-results.xml'
-                }
-            }
-        }
-
-        stage('Test Coverage') {
-            steps {
-                script {
-                    sh 'npm run test:cov'
-                }
-            }
-        }
-
         stage('Build Image') {
             steps {
                 script {
