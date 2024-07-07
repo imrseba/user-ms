@@ -22,11 +22,6 @@ pipeline {
                     sh 'npm run test'
                 }
             }
-            post {
-                always {
-                    junit '**/unit-test-results.xml'
-                }
-            }
         }
 
         stage('E2E Tests') {
@@ -46,15 +41,6 @@ pipeline {
             steps {
                 script {
                     sh 'npm run test:cov'
-                }
-            }
-            post {
-                always {
-                    publishHTML(target: [
-                        reportDir: 'coverage',
-                        reportFiles: 'index.html',
-                        reportName: 'Test Coverage Report'
-                    ])
                 }
             }
         }
