@@ -14,8 +14,6 @@ spec:
       labels:
         app: user-ms 
     spec:
-      imagePullSecrets:
-      - name: dockerhubsecret
       containers:
       - name: nodeserver
         image: imrseba/ms-user:latest
