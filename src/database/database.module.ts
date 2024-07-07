@@ -16,7 +16,6 @@ const REPOSITORIES: Provider[] = [
 
 @Module({
   imports: [
-    /* Configuración TypeORM */
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
@@ -28,3 +27,4 @@ const REPOSITORIES: Provider[] = [
   exports: [...REPOSITORIES],
 })
 export class DatabaseModule {}
+

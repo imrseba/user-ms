@@ -1,5 +1,4 @@
 import { TypeOrmModuleOptions } from '@nestjs/typeorm';
-
 import { ConfigService } from 'src/config/config.service';
 
 export const getTypeOrmModuleOptions = (
@@ -7,6 +6,8 @@ export const getTypeOrmModuleOptions = (
 ): TypeOrmModuleOptions => ({
   type: 'sqlite',
   database: config.getDatabasePath(),
+  entities: [__dirname + '/../**/*.entity{.ts,.js}'],
   autoLoadEntities: true,
-  synchronize: false,
+  synchronize: true,
 });
+

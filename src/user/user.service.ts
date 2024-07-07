@@ -1,5 +1,4 @@
 import { Inject, Injectable } from '@nestjs/common';
-
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { USER_REPOSITORY, UserRepository } from './user.repository';
@@ -11,27 +10,28 @@ export class UserService {
     @Inject(USER_REPOSITORY) private readonly userRepository: UserRepository,
   ) {}
 
-  createUser(body: CreateUserDto) {
+  async createUser(body: CreateUserDto) {
     body.password = hashSync(body.password, 10);
-    return this.userRepository.createUser(body);
+    return await this.userRepository.createUser(body);
   }
 
-  getAllUsers() {
-    return this.userRepository.getAllUsers();
+  async getAllUsers() {
+    return await this.userRepository.getAllUsers();
   }
 
-  getUser(id: number) {
-    return this.userRepository.getUser(id);
+  async getUser(id: number) {
+    return await this.userRepository.getUser(id);
   }
 
-  updateUser(id: number, body: UpdateUserDto) {
+  async updateUser(id: number, body: UpdateUserDto) {
     if (body.password) {
       body.password = hashSync(body.password, 10);
     }
-    return this.userRepository.updateUser(id, body);
+    return await this.userRepository.updateUser(id, body);
   }
 
-  removeUser(id: number) {
-    return this.userRepository.deleteUser(id);
+  async removeUser(id: number) {
+    return await this.userRepository.deleteUser(id);
   }
 }
+
